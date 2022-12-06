@@ -5,7 +5,7 @@ use std::path::Path;
 fn main() {
     // Hardcode input, too lazy to parse ;)
     let mut stacks = [
-        vec![],
+        vec![], // empty first stack so I can parse the procedures verbatim (stacks start at 1)
         vec!['Q', 'W', 'P', 'S', 'Z', 'R', 'H', 'D'],
         vec!['V', 'B', 'R', 'W', 'Q', 'H', 'F'],
         vec!['C', 'V', 'S', 'H'],
