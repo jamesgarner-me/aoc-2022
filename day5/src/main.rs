@@ -4,7 +4,7 @@ use std::path::Path;
 
 fn main() {
     // Hardcode input, too lazy to parse ;)
-    let mut stacks = [
+    let mut all_stacks = [
         vec![], // empty first stack so I can parse the procedures verbatim (stacks start at 1)
         vec!['Q', 'W', 'P', 'S', 'Z', 'R', 'H', 'D'],
         vec!['V', 'B', 'R', 'W', 'Q', 'H', 'F'],
@@ -23,42 +23,42 @@ fn main() {
     // Apply procedures on crate stacks / Vector
     for _x in 0..procedures.len() {
         let curr_step = procedures.pop().unwrap();
-        let count = curr_step[0];
-        let index_source = curr_step[1];
-        let index_target = curr_step[2];
-        stacks = push_pop_crate(count, index_source, index_target, stacks);
+        let num_crates_to_move = curr_step[0];
+        let from_stack = curr_step[1];
+        let to_stack = curr_step[2];
+        all_stacks = push_pop_crate(num_crates_to_move, from_stack, to_stack, all_stacks);
     }
 
     // Print solution
-    println!("{:?}", top_crates(&stacks));
+    println!("{:?}", top_crates(&all_stacks));
 }
 
-fn top_crates(vec: &[Vec<char>; 10]) -> String {
+fn top_crates(all_stacks: &[Vec<char>; 10]) -> String {
     let mut top_crates = String::new();
-    for x in 1..vec.len() {
-        top_crates.push(vec[x].last().copied().unwrap());
+    for x in 1..all_stacks.len() {
+        top_crates.push(all_stacks[x].last().copied().unwrap());
     }
     return top_crates;
 }
 
 fn push_pop_crate(
-    count: usize,
-    index_source: usize,
-    index_target: usize,
-    mut stacks: [Vec<char>; 10],
+    num_crates_to_move: usize,
+    from_stack: usize,
+    to_stack: usize,
+    mut all_stacks: [Vec<char>; 10],
 ) -> [Vec<char>; 10] {
-    for _x in 0..count {
-        let c = stacks[index_source].pop().unwrap();
-        stacks[index_target].push(c);
+    for _x in 0..num_crates_to_move {
+        let c = all_stacks[from_stack].pop().unwrap();
+        all_stacks[to_stack].push(c);
     }
-    return stacks;
+    return all_stacks;
 }
 
 //
 // Helper functions
 //
 
-fn print_stacks(vec: &[Vec<char>; 10]) {
+fn print_all_stacks(vec: &[Vec<char>; 10]) {
     for x in 1..vec.len() {
         println!("Stack {}: {:?}", x, vec[x]);
     }
