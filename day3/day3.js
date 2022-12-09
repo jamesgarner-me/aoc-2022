@@ -18,7 +18,6 @@ const findCommonItem = (str1, str2, str3) => {
         else {
             if (str2.indexOf(str1[i]) >= 0 && str3.indexOf(str1[i]) >= 0) {
                 commonCharacter = str1[i];
-                console.log('commonCharacter: ' + commonCharacter);
                 break;
             }
         }
